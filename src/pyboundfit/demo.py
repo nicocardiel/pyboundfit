@@ -1,3 +1,6 @@
+# -*- coding: utf-8 -*-
+#
+# Copyright 2025 Universidad Complutense de Madrid
 #
 # This file is part of pyboundfit
 #

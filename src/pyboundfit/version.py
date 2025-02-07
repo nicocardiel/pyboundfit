@@ -4,7 +4,7 @@
 #
 # This file is part of pyboundfit
 #
-# SPDX-License-Identifier: GPL-3.0-or-later
+# SPDX-License-Identifier: GPL-3.0+
 # License-Filename: LICENSE.txt
 #
 
