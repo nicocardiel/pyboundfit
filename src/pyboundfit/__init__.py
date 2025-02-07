@@ -8,7 +8,7 @@
 #
 
 from .boundfit_adaptive_splines import boundfit_adaptive_splines
-from .boundfit_poly import import boundfit_poly
+from .boundfit_poly import boundfit_poly
 from .numsplines import AdaptiveLSQUnivariateSpline
 from .version import version
 
