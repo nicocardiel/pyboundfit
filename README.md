@@ -23,7 +23,7 @@ $ . venv_pyboundfit/bin/activate
 The latest stable version is available via de [PyPI repository](https://pypi.org/project/pyboundfit/):
 
 ```shell
-(venv_teareduce) $ pip install pyboundfit
+(venv_pyboundfit) $ pip install pyboundfit
 ```
 **Note**: This command can also be employed in a Windows terminal opened through the 
 ``CMD.exe prompt`` icon available in Anaconda Navigator.
@@ -31,18 +31,18 @@ The latest stable version is available via de [PyPI repository](https://pypi.org
 The latest development version is available through [GitHub](https://github.com/nicocardiel/pyboundfit):
 
 ```shell
-(venv_teareduce) $ pip install git+https://github.com/nicocardiel/pyboundfit.git@main#egg=pyboundfit
+(venv_pyboundfit) $ pip install git+https://github.com/nicocardiel/pyboundfit.git@main#egg=pyboundfit
 ```
 
 ### Testing the installation
 
 ```shell
-(venv_teareduce) $ pip show teareduce
+(venv_pyboundfit) $ pip show teareduce
 ```
 
 ```shell
-(venv_teareduce) $ ipython
+(venv_pyboundfit) $ ipython
 In [1]: import pyboundfit
 In [2]: print(pyboundfit.__version__)
-?.?.?
+0.2.0
 ```
