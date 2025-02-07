@@ -44,5 +44,5 @@ The latest development version is available through [GitHub](https://github.com/
 (venv_pyboundfit) $ ipython
 In [1]: import pyboundfit
 In [2]: print(pyboundfit.__version__)
-0.2.0
+0.1.1
 ```
