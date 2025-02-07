@@ -13,7 +13,7 @@ import numpy as np
 from .numsplines import AdaptiveLSQUnivariateSpline
 
 
-def boundfit_adaptive_spline(x, y, t, boundary='upper', xi=100, niter=20):
+def boundfit_adaptive_splines(x, y, t, boundary='upper', xi=100, niter=20):
     if boundary not in ['upper', 'lower']:
         raise SystemExit(f'Invalid boundary: {boundary}')
     flag = {'upper': 1, 'lower': -1}
