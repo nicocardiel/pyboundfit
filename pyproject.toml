@@ -3,7 +3,7 @@
 # (include packages imported in the different modules; otherwise
 # a ModuleNotFoundError is raised when using $ pip install -e .)
 requires = ["setuptools >= 43.0.0", "wheel", "numpy",
-            "astropy", "matplotlib", "scipy", "lmfit", "tqdm"]
+            "matplotlib", "scipy", "lmfit"]
 build-backend = "setuptools.build_meta"
 
 [project]
