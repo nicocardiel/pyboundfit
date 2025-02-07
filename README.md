@@ -42,7 +42,26 @@ The latest development version is available through [GitHub](https://github.com/
 
 ```shell
 (venv_pyboundfit) $ ipython
-In [1]: import pyboundfit
-In [2]: print(pyboundfit.__version__)
-0.1.1
 ```
+```python
+In [1]: import pyboundfit
+
+In [2]: print(pyboundfit.__version__)
+0.2.0
+
+In [3]: pol1, pol2, spl1, spl2 = pyboundfit.demo()
+Computing upper boundary (polynomial fit)... OK!
+Computing lower boundary (polynomial fit)... OK!
+Computing upper boundary (splines fit)... OK!
+Computing lower boundary (splines fit)... OK!
+
+In [4]: pol1.coef
+Out[4]: 
+array([  23.93468048,  -27.52145834,   10.30357372,   84.12092668,
+         24.85352908, -107.79404231])
+...
+```
+
+The demo function computes the boundary fits to some example data and
+generates the following plot:
+![pyboundfit demo plot](https://guaix.fis.ucm.es/~ncl/pyboundfit/pyboundfit_example.png)

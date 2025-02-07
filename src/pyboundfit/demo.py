@@ -15,6 +15,7 @@ from pyboundfit import boundfit_adaptive_splines, boundfit_poly
 
 
 def __demofun(xtest, ytest, plot=False, verbose=True):
+    """Compute boundaries to demo data."""
     if verbose:
         print('Computing upper boundary (polynomial fit)... ', end='')
     poly1 = boundfit_poly(x=xtest, y=ytest, deg=5, boundary='upper')
