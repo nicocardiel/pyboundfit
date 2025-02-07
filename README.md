@@ -5,6 +5,8 @@ Boundary fits using polynomials or splines, based on the method described in
 This code is a Python implementation of part of the functionality
 implemented in the original Fortran 77 code [boundfit](https://github.com/nicocardiel/boundfit).
 
+The numerical minization is performed with the help of the package [lmfit](https://lmfit.github.io/lmfit-py/).
+
 ## Instaling the code
 
 In order to keep your Python installation clean, it is highly recommended to 
@@ -77,22 +79,23 @@ import pyboundfit as bf
 
 Generate some random data to be fitted
 ```python
+npoints = 300
 rng = np.random.default_rng(seed=1234)
-npoints = 1000
-xfit = np.linspace(0, 1, 100)
-yfit = np.exp(-xfit) + rng.normal(loc=0, scale=0.1, size=npoints)
+xfit = np.linspace(1.0, 3.5, npoints)
+yfit = np.sin(xfit) + rng.normal(loc=0, scale=0.1, size=npoints)
 ```
 
 Fit upper and lower boundaries using polynomials
 ```python
-pol_upper = bf.boundfit_poly(x=xfit, y=yfit, deg=5, xi=1000, niter=100, boundary='upper')
-pol_lower = bf.boundfit_poly(x=xfit, y=yfit, deg=5, xi=1000, niter=100, boundary='lower')
+pol_upper = bf.boundfit_poly(x=xfit, y=yfit, deg=7, xi=1000, niter=1000, boundary='upper')
+pol_lower = bf.boundfit_poly(x=xfit, y=yfit, deg=7, xi=1000, niter=1000, boundary='lower')
 ```
 
-Fit upper and lower boundaries using splines
+Fit upper and lower boundaries using splines (the numerical minimization takes some time).
+
 ```python
-spl_upper = bf.boundfit_adaptive_splines(x=xfit, y=yfit, t=5, xi=100, niter=100, boundary='upper')
-spl_lower = bf.boundfit_adaptive_splines(x=xfit, y=yfit, t=5, xi=100, niter=100, boundary='lower')
+spl_upper = bf.boundfit_adaptive_splines(x=xfit, y=yfit, t=5, xi=1000, niter=1000, boundary='upper')
+spl_lower = bf.boundfit_adaptive_splines(x=xfit, y=yfit, t=5, xi=1000, niter=1000, boundary='lower')
 ```
 
 Display the result
@@ -111,9 +114,7 @@ ax.legend()
 plt.tight_layout()
 plt.show()
 ```
-
-Please, note that the result is sensitive to the asymmetry 
-coefficient ``xi`` and the number of iterations ``niter``
+**Please, note that the result are quite sensitive to the fitting parameters.**
 
 ## Citation
 

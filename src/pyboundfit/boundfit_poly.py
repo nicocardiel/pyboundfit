@@ -18,6 +18,7 @@ def boundfit_poly(x, y, deg, boundary='upper', xi=100, niter=100):
     # initial fit
     poly = Polynomial.fit(x=x, y=y, deg=deg)
     # iterate to compute upper boundary
+    residuals_previous = None
     for i in range(niter):
         residuals = y - poly(x)
         sign = np.sign(residuals).astype(int)
@@ -25,4 +26,11 @@ def boundfit_poly(x, y, deg, boundary='upper', xi=100, niter=100):
         w[sign==flag[boundary]] = xi
         w[sign==0] = xi
         poly = Polynomial.fit(x=x, y=y, deg=deg, w=w)
+        if i == 0:
+            residuals_previous = residuals
+        else:
+            if np.all(np.isclose(residuals, residuals_previous)):
+                break
+            else:
+                residuals_previous = residuals
     return poly

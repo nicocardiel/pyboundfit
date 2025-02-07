@@ -100,10 +100,8 @@ class AdaptiveLSQUnivariateSpline(LSQUnivariateSpline):
             # (note that in the call to super(...).__init(...) the
             # parameter check_finite is set to False)
             w_finite = np.isfinite(x).all() if w is not None else True
-            if not np.isfinite(x).all() or not np.isfinite(y).all() or \
-                    not w_finite:
-                raise ValueError('Input(s) must not contain '
-                                 'NaNs or infs.')
+            if not np.isfinite(x).all() or not np.isfinite(y).all() or not w_finite:
+                raise ValueError('Input(s) must not contain NaNs or infs.')
 
             if np.asarray(x).ndim != 1:
                 raise ValueError('x array must have dimension 1')
@@ -113,6 +111,12 @@ class AdaptiveLSQUnivariateSpline(LSQUnivariateSpline):
 
             if np.asarray(x).shape != np.asarray(y).shape:
                 raise ValueError('x and y arrays must have the same length')
+
+            if w is not None:
+                if np.asarray(w).ndim != 1:
+                    raise ValueError('w array must have dimension 1')
+                if np.asarray(x).shape != np.asarray(w).shape:
+                    raise ValueError('x and w arrays must have the same length')
 
             if not all(np.diff(x) > 0.0):
                 raise ValueError('x array must be strictly increasing')
@@ -133,8 +137,7 @@ class AdaptiveLSQUnivariateSpline(LSQUnivariateSpline):
             xknot = np.asarray(t)
             if check_finite:
                 if not np.isfinite(xknot).all():
-                    raise ValueError('Interior knots must not contain '
-                                     'NaNs or infs.')
+                    raise ValueError('Interior knots must not contain NaNs or infs.')
                 if xknot.ndim != 1:
                     raise ValueError('t array must have dimension 1')
             nknots = len(xknot)
@@ -158,11 +161,14 @@ class AdaptiveLSQUnivariateSpline(LSQUnivariateSpline):
             params = Parameters()
             for i in range(nknots):
                 if i == 0:
-                    xminknot = bx * x[0] - cx
-                    xmaxknot = (xknotnor[i] + xknotnor[i+1]) / 2.0
+                    xminknot = xnor[0]
+                    if nknots == 1:
+                        xmaxknot = (xknotnor[i] + xnor[-1]) / 2.0
+                    else:
+                        xmaxknot = (xknotnor[i] + xknotnor[i+1]) / 2.0
                 elif i == nknots - 1:
                     xminknot = (xknotnor[i-1] + xknotnor[i]) / 2.0
-                    xmaxknot = bx * x[-1] - cx
+                    xmaxknot = xnor[-1]
                 else:
                     xminknot = (xknotnor[i-1] + xknotnor[i]) / 2.0
                     xmaxknot = (xknotnor[i] + xknotnor[i+1]) / 2.0
