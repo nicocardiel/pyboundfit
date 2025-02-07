@@ -7,6 +7,8 @@
 # License-Filename: LICENSE.txt
 #
 
+from .boundfit_adaptive_splines import boundfit_adaptive_spline
+from .boundfit_poly import import boundfit_poly
 from .numsplines import AdaptiveLSQUnivariateSpline
 from .version import version
 
