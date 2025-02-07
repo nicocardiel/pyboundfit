@@ -65,3 +65,76 @@ array([  23.93468048,  -27.52145834,   10.30357372,   84.12092668,
 The demo function computes the boundary fits to some example data and
 generates the following plot:
 ![pyboundfit demo plot](https://guaix.fis.ucm.es/~ncl/pyboundfit/pyboundfit_example.png)
+
+## Usage
+
+Import the required packages
+```python
+import matplotlib.pyplot as plt
+import numpy as np
+import pyboundfit as bf
+```
+
+Generate some random data to be fitted
+```python
+rng = np.random.default_rng(seed=1234)
+npoints = 1000
+xfit = np.linspace(0, 1, 100)
+yfit = np.exp(-xfit) + rng.normal(loc=0, scale=0.1, size=npoints)
+```
+
+Fit upper and lower boundaries using polynomials
+```python
+pol_upper = bf.boundfit_poly(x=xfit, y=yfit, deg=5, xi=1000, niter=100, boundary='upper')
+pol_lower = bf.boundfit_poly(x=xfit, y=yfit, deg=5, xi=1000, niter=100, boundary='lower')
+```
+
+Fit upper and lower boundaries using splines
+```python
+spl_upper = bf.boundfit_adaptive_splines(x=xfit, y=yfit, t=5, xi=100, niter=100, boundary='upper')
+spl_lower = bf.boundfit_adaptive_splines(x=xfit, y=yfit, t=5, xi=100, niter=100, boundary='lower')
+```
+
+Display the result
+
+```python
+import matplotlib.pyplot as plt
+fig, ax = plt.subplots()
+ax.plot(xfit, yfit, 'ko')
+ax.plot(xfit, pol_upper(xfit), '-', label='upper boundary (polynomial)')
+ax.plot(xfit, pol_lower(xfit), '-', label='lower boundary (polynomial)')
+ax.plot(xfit, spl_upper(xfit), '-', label='upper boundary (splines)')
+ax.plot(xfit, spl_lower(xfit), '-', label='lower boundary (splines)')
+ax.set_xlabel('X axis')
+ax.set_ylabel('Y axis')
+ax.legend()
+plt.tight_layout()
+plt.show()
+```
+
+Please, note that the result is sensitive to the asymmetry 
+coefficient ``xi`` and the number of iterations ``niter``
+
+## Citation
+
+If you find this package useful, please cite
+[Cardiel 2009](https://ui.adsabs.harvard.edu/abs/2009MNRAS.396..680C/abstract).
+
+```
+@ARTICLE{2009MNRAS.396..680C,
+       author = {{Cardiel}, N.},
+        title = "{Data boundary fitting using a generalized least-squares method}",
+      journal = {\mnras},
+     keywords = {methods: data analysis, methods: numerical, Astrophysics - Instrumentation and Methods for Astrophysics},
+         year = 2009,
+        month = jun,
+       volume = {396},
+       number = {2},
+        pages = {680-695},
+          doi = {10.1111/j.1365-2966.2009.14749.x},
+archivePrefix = {arXiv},
+       eprint = {0903.2068},
+ primaryClass = {astro-ph.IM},
+       adsurl = {https://ui.adsabs.harvard.edu/abs/2009MNRAS.396..680C},
+      adsnote = {Provided by the SAO/NASA Astrophysics Data Syste
+```

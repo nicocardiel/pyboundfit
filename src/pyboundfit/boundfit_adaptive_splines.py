@@ -31,4 +31,8 @@ def boundfit_adaptive_splines(x, y, t, boundary='upper', xi=100, niter=20):
         w[sign==flag[boundary]] = xi
         w[sign==0] = xi
         spl = AdaptiveLSQUnivariateSpline(x=x, y=y, w=w, t=t)
+
+    spl.xi = xi
+    spl.niter = niter
+
     return spl
