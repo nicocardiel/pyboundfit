@@ -5,7 +5,9 @@ Boundary fits using polynomials or splines, based on the method described in
 This code is a Python implementation of part of the functionality
 implemented in the original Fortran 77 code [boundfit](https://github.com/nicocardiel/boundfit).
 
-The numerical minization is performed with the help of the package [lmfit](https://lmfit.github.io/lmfit-py/).
+The numerical minimization of the fit to splines is performed with the help of the package [lmfit](https://lmfit.github.io/lmfit-py/).
+
+*Warning: this code is under development. Major changes are still being introduced.*
 
 ## Instaling the code
 
