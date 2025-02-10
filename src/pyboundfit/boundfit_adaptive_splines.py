@@ -13,7 +13,11 @@ import numpy as np
 from .numsplines import AdaptiveLSQUnivariateSpline
 
 
-def boundfit_adaptive_splines(x, y, t, boundary='upper', xi=100, niter=1000, adaptive=True):
+def boundfit_adaptive_splines(
+        x, y, t, boundary='upper',
+        xi=100, niter=1000, adaptive=True,
+        return_all_fits=False
+):
     if boundary not in ['upper', 'lower']:
         raise SystemExit(f'Invalid boundary: {boundary}')
     flag = {'upper': 1, 'lower': -1}
@@ -24,6 +28,11 @@ def boundfit_adaptive_splines(x, y, t, boundary='upper', xi=100, niter=1000, ada
     # initial fit
     spl = AdaptiveLSQUnivariateSpline(x=x, y=y, t=t, adaptive=adaptive)
     spl.niter = 0
+    spl.xi = xi
+    if return_all_fits:
+        list_all_fits = [spl]
+    else:
+        list_all_fits = None
     # iterate to refine boundary
     t_previous = None
     residuals_previous = None
@@ -36,6 +45,9 @@ def boundfit_adaptive_splines(x, y, t, boundary='upper', xi=100, niter=1000, ada
         w[sign==0] = xi
         spl = AdaptiveLSQUnivariateSpline(x=x, y=y, w=w, t=t, adaptive=adaptive)
         spl.niter = i + 1
+        spl.xi = xi
+        if return_all_fits:
+            list_all_fits.append(spl)
         # stop iterations when knot location and residuals are stable
         if i == 0:
             t_previous = t
@@ -46,6 +58,7 @@ def boundfit_adaptive_splines(x, y, t, boundary='upper', xi=100, niter=1000, ada
             else:
                 t_previous = t
 
-    spl.xi = xi
-
-    return spl
+    if return_all_fits:
+        return spl, list_all_fits
+    else:
+        return spl
