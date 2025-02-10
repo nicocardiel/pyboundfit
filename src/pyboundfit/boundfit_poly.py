@@ -46,4 +46,4 @@ def boundfit_poly(
     if return_all_fits:
         return poly, list_all_fits
     else:
-        return all
+        return poly
