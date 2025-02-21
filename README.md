@@ -41,7 +41,7 @@ The latest development version is available through [GitHub](https://github.com/
 ### Testing the installation
 
 ```shell
-(venv_pyboundfit) $ pip show teareduce
+(venv_pyboundfit) $ pip show pyboundfit
 ```
 
 ```shell
@@ -51,7 +51,7 @@ The latest development version is available through [GitHub](https://github.com/
 In [1]: import pyboundfit
 
 In [2]: print(pyboundfit.__version__)
-0.2.0
+0.3.0
 
 In [3]: pol1, pol2, spl1, spl2 = pyboundfit.demo()
 Computing upper boundary (polynomial fit)... OK!
@@ -61,8 +61,8 @@ Computing lower boundary (splines fit)... OK!
 
 In [4]: pol1.coef
 Out[4]: 
-array([  23.93468048,  -27.52145834,   10.30357372,   84.12092668,
-         24.85352908, -107.79404231])
+array([  22.43919975,  -41.5216713 ,   -7.32451917,  140.23297889,
+         41.59855497, -148.66578342])
 ...
 ```
 
@@ -89,15 +89,33 @@ yfit = np.sin(xfit) + rng.normal(loc=0, scale=0.1, size=npoints)
 
 Fit upper and lower boundaries using polynomials
 ```python
-pol_upper = bf.boundfit_poly(x=xfit, y=yfit, deg=7, xi=1000, niter=1000, boundary='upper')
-pol_lower = bf.boundfit_poly(x=xfit, y=yfit, deg=7, xi=1000, niter=1000, boundary='lower')
+pol_upper = bf.boundfit_poly(
+    x=xfit, y=yfit, deg=5, 
+    xi=10, niter=100, expweight=True,
+    boundary='upper'
+)
+pol_lower = bf.boundfit_poly(
+    x=xfit, y=yfit, deg=5, 
+    xi=10, niter=100, expweight=True,
+    boundary='lower'
+)
 ```
 
 Fit upper and lower boundaries using splines (the numerical minimization takes some time).
 
 ```python
-spl_upper = bf.boundfit_adaptive_splines(x=xfit, y=yfit, t=5, xi=1000, niter=1000, boundary='upper')
-spl_lower = bf.boundfit_adaptive_splines(x=xfit, y=yfit, t=5, xi=1000, niter=1000, boundary='lower')
+spl_upper = bf.boundfit_adaptive_splines(
+    x=xfit, y=yfit, t=5, 
+    xi=100, niter=100, boundary='upper',
+    adaptive=False,
+    expweight=True
+)
+spl_lower = bf.boundfit_adaptive_splines(
+    x=xfit, y=yfit, t=5, 
+    xi=100, niter=100, boundary='lower',
+    adaptive=False,
+    expweight=True
+)
 ```
 
 Display the result
