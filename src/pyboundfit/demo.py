@@ -12,6 +12,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 from pyboundfit import boundfit_adaptive_splines, boundfit_poly
+from pyboundfit import demo
 
 
 def __demofun_pol1(xtest, ytest, verbose):
@@ -33,7 +34,7 @@ def __demofun_pol2(xtest, ytest, verbose):
 def __demofun_spl1(xtest, ytest, verbose):
     if verbose:
         print('Computing upper boundary (adaptive splines fit)... ', end='')
-    spl1 = boundfit_adaptive_splines(x=xtest, y=ytest, t=5, boundary='upper', xi=100, niter=100, adaptive=True)
+    spl1 = boundfit_adaptive_splines(x=xtest, y=ytest, t=5, boundary='upper', xi=100, niter=100, adaptive=False)
     if verbose:
         print('OK!')
     return spl1
@@ -41,7 +42,7 @@ def __demofun_spl1(xtest, ytest, verbose):
 def __demofun_spl2(xtest, ytest, verbose):
     if verbose:
         print('Computing lower boundary (adaptive splines fit)... ', end='')
-    spl2 = boundfit_adaptive_splines(x=xtest, y=ytest, t=5, boundary='lower', xi=100, niter=100, adaptive=True)
+    spl2 = boundfit_adaptive_splines(x=xtest, y=ytest, t=5, boundary='lower', xi=100, niter=100, adaptive=False)
     if verbose:
         print('OK!')
     return spl2
@@ -84,3 +85,11 @@ def __demofun(xtest, ytest, plot=False, verbose=True):
         plt.show()
 
     return poly1, poly2, spl1, spl2
+
+
+if __name__ == '__main__':
+    pol1, pol2, spl1, spl2 = demo(plot=True, verbose=True)
+    print(pol1.coef)
+    print(pol2.coef)
+    print(spl1.get_coeffs())
+    print(spl2.get_coeffs())

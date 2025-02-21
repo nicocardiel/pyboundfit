@@ -193,8 +193,7 @@ class AdaptiveLSQUnivariateSpline(LSQUnivariateSpline):
                 xknot = [item.value for item in self._result.params.values()]
                 xknot = (np.asarray(xknot) + cx) / bx
             except ValueError:
-                print('Error when fitting adaptive splines. '
-                      'Reverting to initial knot location.')
+                print('Error when fitting adaptive splines. Reverting to initial knot location.')
                 xknot = xknot_backup.copy()
                 self._result = None
         else:
