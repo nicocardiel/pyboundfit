@@ -126,15 +126,17 @@ fig, ax = plt.subplots()
 ax.plot(xfit, yfit, 'ko')
 ax.plot(xfit, pol_upper(xfit), '-', label='upper boundary (polynomial)')
 ax.plot(xfit, pol_lower(xfit), '-', label='lower boundary (polynomial)')
-ax.plot(xfit, spl_upper(xfit), '-', label='upper boundary (splines)')
-ax.plot(xfit, spl_lower(xfit), '-', label='lower boundary (splines)')
+ax.plot(xfit, spl_upper(xfit), ':', label='upper boundary (splines)')
+ax.plot(xfit, spl_lower(xfit), ':', label='lower boundary (splines)')
 ax.set_xlabel('X axis')
 ax.set_ylabel('Y axis')
 ax.legend()
 plt.tight_layout()
 plt.show()
 ```
-**Please, note that the result are quite sensitive to the fitting parameters.**
+![pyboundfit demo plot](https://guaix.fis.ucm.es/~ncl/pyboundfit/pyboundfit_usage.png)
+
+**Please, note that the results are quite sensitive to the fitting parameters.**
 
 ## Citation
 
